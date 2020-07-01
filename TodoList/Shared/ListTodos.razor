@@ -1,0 +1,66 @@
+﻿@using TodoList.Data;
+@using TodoList.State;
+
+@implements IDisposable;
+
+@inject TodoListState TodoListState;
+
+@if (TodoListState.Count() > 0)
+{ 
+<div class="items">
+    @for (int i = 0; i < TodoListState.Count(); i++)
+    {
+        int tempIndex = i;
+        ToDoItem item = TodoListState[i];
+        <div class="item">
+            <input class="checkbox" type="checkbox" @onchange="@(()=>HandleCheckBoxClick(tempIndex))">
+            @if (item.isEditable)
+            {
+        <input type="text" value="@item.Value" class="editItem" >
+            }
+            else
+            {
+                <span class="@(item.isCrossedOut ? "itemDisabled" : "")">@item.Value</span>
+            }
+
+            <button disabled="@(item.isCrossedOut ? true : false)" class="itemButton" @onclick="@(()=>HandleEditClick(tempIndex))">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z"></path></svg>
+            </button>
+            <button class="itemButton" @onclick="@(() => HandleDeleteClick(tempIndex))">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"></path></svg>
+            </button>
+        </div>
+    }
+</div>
+}
+@code {
+    protected override void OnInitialized()
+    {
+        // Subscribe to the StateChanged EventHandler
+        TodoListState.StateChanged += OnTodoListStateChanged;
+    }
+
+    void OnTodoListStateChanged(object sender, EventArgs e) => StateHasChanged();
+
+    void IDisposable.Dispose()
+    {
+        // When this control is disposed of
+        // unsubscribe from the StateChanged EventHandler
+        TodoListState.StateChanged -= OnTodoListStateChanged;
+    }
+
+    private void HandleEditClick(int index)
+    {
+        TodoListState[index].isEditable = true;
+    }
+
+    private void HandleCheckBoxClick(int index)
+    {
+        TodoListState[index].isEditable = false;
+        TodoListState[index].isCrossedOut = !TodoListState[index].isCrossedOut;
+    }
+    private void HandleDeleteClick(int index)
+    {
+        TodoListState.RemoveItem(index);
+    }
+}

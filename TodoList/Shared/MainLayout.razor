@@ -1,0 +1,30 @@
+﻿@inherits LayoutComponentBase
+@using TodoList.State;
+@inject TodoListState TodoListState;
+
+@implements IDisposable;
+
+<main>
+    <h1 class="header">To Do List (@TodoListState.Count())</h1>
+    <AddTodo />
+    <ListTodos />
+</main>
+
+@code{
+
+    protected override void OnInitialized()
+    {
+        // Subscribe to the StateChanged EventHandler
+        TodoListState.StateChanged += OnTodoListStateChanged;
+    }
+
+    void OnTodoListStateChanged(
+        object sender, EventArgs e) => StateHasChanged();
+
+    void IDisposable.Dispose()
+    {
+        // When this control is disposed of
+        // unsubscribe from the StateChanged EventHandler
+        TodoListState.StateChanged -= OnTodoListStateChanged;
+    }
+}

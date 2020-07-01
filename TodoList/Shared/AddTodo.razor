@@ -1,0 +1,26 @@
+﻿@using TodoList.State;
+@inject TodoListState TodoListState;
+<div class="addItem">
+    <div class="addItemContent">
+        <input class="addItemInput" placeholder="Enter a todo item" type="text" @oninput="HandleOnChange" @bind="TodoItemValue">
+    </div>
+    <button disabled="@IsDisabled" class="addItemButton" type="button" @onclick="HandleOnClick">Add</button>
+</div>
+
+@code{
+    private bool IsDisabled = true;
+    private string TodoItemValue { get; set; }
+
+    private void HandleOnChange(ChangeEventArgs e)
+    {
+        TodoItemValue = e.Value.ToString().Trim();
+        IsDisabled = TodoItemValue.Length == 0;
+    }
+
+    private void HandleOnClick(MouseEventArgs e)
+    {
+        TodoListState.AddItem(TodoItemValue);
+        TodoItemValue = "";
+    }
+
+}

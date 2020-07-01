@@ -1,0 +1,103 @@
+.header {
+    max-width: 400px;
+    text-align: center;
+    font-size: 2rem;
+    margin: 0 auto .8rem;
+    background: #30475e;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.addItem {
+    display: flex;
+    justify-content: center;
+}
+.addItemContent {
+    padding-right: .25rem;
+}
+.addItemInput, .editItem {
+    font-size: 1rem;
+    padding: .38rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+}
+.addItemButton {
+    background: #30475e;
+    background-color: #30475e;
+    border-radius: 6px;
+    border: 1px solid #dcdcdc;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1rem;
+    padding: .3rem 1.5rem;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #fff;
+    outline: none;
+}
+    .addItemButton:disabled {
+        opacity: .7;
+        cursor: auto;
+        background: #b9b9b9;
+    }
+.addItemButton:active, .itemButton:active {
+    position: relative;
+    top: 1px;
+}
+
+.items {
+    max-width: 400px;
+    margin: .5rem auto;
+    border: 1px solid #8b8989;
+}
+.item {
+    padding: .5rem;
+    display: grid;
+    grid-template-columns: .5fr 4fr .5fr .5fr;
+    grid-column-gap: .25rem;
+    align-items: center;
+}
+    .item:nth-child(odd) {
+        background: #ececec;
+    }
+.itemDisabled {
+    text-decoration: line-through;
+    opacity: .5;
+}
+
+.checkbox {
+    background-color: #fff;
+    border: 1px solid rgb(139, 137, 137);
+    padding: 9px;
+    border-radius: 3px;
+    display: inline-block;
+    -webkit-appearance: none;
+    position: relative;
+    width: 24px;
+}
+
+    .checkbox:checked {
+        background-color: #30475e;
+        border: 1px solid #adb8c0;
+        color: #99a1a7;
+    }
+
+        .checkbox:checked:after {
+            content: 'X';
+            font-size: 14px;
+            position: absolute;
+            top: 1px;
+            left: 6px;
+            color: #fff;
+        }
+
+.itemButton:disabled {
+    opacity: .5;
+    position: unset;
+}
+
+.itemButton {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: none;
+}
