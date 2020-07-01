@@ -101,3 +101,8 @@
     cursor: pointer;
     background: none;
 }
+
+.pageNotFound {
+   text-align :center;
+   margin:2rem;
+}

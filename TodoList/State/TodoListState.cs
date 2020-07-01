@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TodoList.Data;
 
 namespace TodoList.State
@@ -21,7 +20,6 @@ namespace TodoList.State
             StateHasChanged();
 
         }
-
         public void UpdateItem(int index, string value)
         {
             todos[index].Value = value;
@@ -56,9 +54,9 @@ namespace TodoList.State
         private void StateHasChanged()
         {
             // This will update any subscribers
-            // that the counter state has changed
+            // that the state has changed
             // so they can update themselves
-            // and show the current counter value
+            // and show the latest value
             StateChanged?.Invoke(this, EventArgs.Empty);
         }
     }
